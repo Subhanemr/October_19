@@ -14,30 +14,59 @@ namespace _19_10_23
                 new Orange { Price = 0.75m, Sort = new string[] { "Blood", "Tangerine" }, VitaminC = 20 }
             };
 
+            //Metod 1
+
+            //foreach (Fruit fruit in Basket)
+            //{
+            //    Console.WriteLine("Type: " + fruit.GetType().Name);
+            //    fruit.Taste();
+            //    foreach (var property in fruit.GetType().GetProperties())
+            //    {
+            //        if (property.PropertyType.IsArray)
+            //        {
+            //            Array array = (Array)property.GetValue(fruit);
+            //            Console.Write($"{property.Name}: ");
+            //            foreach (var item in array)
+            //            {
+            //                Console.Write(item + ", ");
+            //            }
+            //            Console.WriteLine();
+            //        }
+            //        else
+            //        {
+            //            Console.WriteLine($"{property.Name}: {property.GetValue(fruit)}");
+            //        }
+            //    }
+            //    Console.WriteLine();
+            //}
+
+            //Metod 2
+
             foreach (Fruit fruit in Basket)
             {
                 Console.WriteLine("Type: " + fruit.GetType().Name);
                 fruit.Taste();
                 foreach (var property in fruit.GetType().GetProperties())
                 {
-                    if (property.PropertyType.IsArray)
+                    object propValue = property.GetValue(fruit);
+                    if (propValue is Array array)
                     {
-                        Array array = (Array)property.GetValue(fruit);
                         Console.Write($"{property.Name}: ");
                         foreach (var item in array)
                         {
-                            Console.Write(item + ", ");
+                            Console.Write(item + ",");
                         }
                         Console.WriteLine();
                     }
                     else
                     {
-                        Console.WriteLine($"{property.Name}: {property.GetValue(fruit)}");
+                        Console.WriteLine($"{property.Name}: {propValue}");
                     }
                 }
                 Console.WriteLine();
             }
-            
+
+
         }
     }
 }
